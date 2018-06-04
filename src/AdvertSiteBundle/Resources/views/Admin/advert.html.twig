@@ -1,0 +1,27 @@
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+{% endblock %}
+    <table class="table table-striped">
+        <tr>
+            <th>Title</th>
+            <th>Publication Date</th>
+            <th>User</th>
+            <th>Description</th>
+            <th>State</th>
+        </tr>
+        {% for advert in adverts %}
+            <tr>
+                <th>{{ advert.title }}</th>
+                <th>{{ advert.publicationDate|date("m/d/Y") }}</th>
+                <th>{{ advert.user }}</th>
+                <th>{{ advert.description }}</th>
+                <th>{{ advert.state }}</th>
+            </tr>
+        {% else %}
+            No adverts have been found.
+        {% endfor %}
+
+    </table>

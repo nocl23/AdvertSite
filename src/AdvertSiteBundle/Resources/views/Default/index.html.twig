@@ -1,1 +1,14 @@
-Hello World!
+{% if error %}
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+
+<form action="{{ path('security_login') }}" method="post">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" value="{{ last_username }}" />
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" />
+
+    <input type="hidden" name="_target_path" value="/display_user" />
+    <button type="submit">login</button>
+</form>
