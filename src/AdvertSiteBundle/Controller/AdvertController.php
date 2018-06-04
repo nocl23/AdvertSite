@@ -26,7 +26,7 @@ class AdvertController extends Controller
 {
 
     /**
-     * @Route ("/create")
+     * @Route ("/create", name="create")
      */
 
     public function AdvertCreateAction(){
@@ -46,16 +46,32 @@ class AdvertController extends Controller
     }
 
     /**
-     * @Route ("/listAdvert")
+     * @Route ("/listAdvert", name="listAdvert")
      */
 
     public function AdvertListAction(){
         $repository = $this->getDoctrine()->getManager()->getRepository('AdvertSiteBundle:Advert');
         //$listAdverts = $repository->findAll();
-        $listAdverts = $repository->findBy(array("user" => "coucou"));
+        $listAdverts = $repository->findBy(array("user" => "nono"));
 
         return $this->render('@AdvertSite/Admin/advert.html.twig', array("adverts"=>$listAdverts));
 
+    }
+
+    /**
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route ("/remove/{id}", name="removeAdvert")
+     */
+
+    public function AdvertRemoveAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getManager()->getRepository('AdvertSiteBundle:Advert');
+        $advert = $repository->findOneBy(array("id"=>$id));
+        $em->remove($advert);
+        $em->flush();
+
+        return $this->redirectToRoute('listAdvert');
     }
 
 

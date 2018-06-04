@@ -11,6 +11,8 @@
             <th>User</th>
             <th>Description</th>
             <th>State</th>
+            <th></th>
+            <th></th>
         </tr>
         {% for advert in adverts %}
             <tr>
@@ -19,6 +21,8 @@
                 <th>{{ advert.user }}</th>
                 <th>{{ advert.description }}</th>
                 <th>{{ advert.state }}</th>
+                <th><a type="button" class="btn btn-primary" role="button" href="/edit">Edit</a></th>
+                <th><a type="button" class="btn btn-danger" role="button" href="/admin/remove/{{ advert.id }}">Remove</a></th>
             </tr>
         {% else %}
             No adverts have been found.
