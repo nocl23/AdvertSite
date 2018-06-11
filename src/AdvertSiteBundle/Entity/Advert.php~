@@ -50,16 +50,16 @@ class Advert
     private $description;
 
     /**
-     * @var string
+     * @var array
      *
-     * @ORM\Column(name="state", type="string")
+     * @ORM\Column(name="state", type="array")
      */
     private $state;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="comment", type="text", nullable=true)
+     * @ORM\Column(name="comment", type="text")
      */
     private $comment;
 
@@ -185,10 +185,12 @@ class Advert
     }
 
     /**
-     * @return string
+     * Get state
+     *
+     * @return array
      */
-
-    public function getState(){
+    public function getState()
+    {
         return $this->state;
     }
 
@@ -216,3 +218,4 @@ class Advert
         return $this->comment;
     }
 }
+

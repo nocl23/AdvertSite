@@ -8,15 +8,12 @@
 
 namespace AdvertSiteBundle\Form;
 
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AdvertSiteBundle\Entity\User;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-
 
 class UserType extends AbstractType
 {
@@ -28,11 +25,9 @@ class UserType extends AbstractType
             -> add('submit', SubmitType::class, array('label' => "submit"));
     }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver){
         $resolver->setDefaults(array(
             'data_class' => User::class,
         ));
     }
-
 }

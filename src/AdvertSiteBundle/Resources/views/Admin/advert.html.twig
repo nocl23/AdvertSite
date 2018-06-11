@@ -1,9 +1,4 @@
-{% block stylesheets %}
-
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.js') }}"></script>
-{% endblock %}
+{% include 'AdvertSiteBundle:Default:index.html.twig' %}
     <table class="table table-striped">
         <tr>
             <th>Title</th>
@@ -21,11 +16,11 @@
                 <th>{{ advert.user }}</th>
                 <th>{{ advert.description }}</th>
                 <th>{{ advert.state }}</th>
-                <th><a type="button" class="btn btn-primary" role="button" href="/edit">Edit</a></th>
+                <th><a type="button" class="btn btn-primary" role="button" href="/admin/edit/{{ advert.id }}">Edit</a></th>
                 <th><a type="button" class="btn btn-danger" role="button" href="/admin/remove/{{ advert.id }}">Remove</a></th>
             </tr>
         {% else %}
             No adverts have been found.
         {% endfor %}
-
     </table>
+    <div><a type="button" class="btn btn-primary col-md-offset-11" role="button" href="/admin/create">New Advert</a></div>
