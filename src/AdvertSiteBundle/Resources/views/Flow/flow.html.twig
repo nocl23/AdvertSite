@@ -1,6 +1,6 @@
 {% include 'AdvertSiteBundle:Default:index.html.twig' %}
 
-{% block flow %}
+{% block body %}
 <div class="container-fluid">
     {% for advert in adverts %}
         <div class=" col-md-offset-3 col-md-6 ">
@@ -9,6 +9,18 @@
                 <div>Le {{ advert.publicationDate|date("m/d/Y") }} par {{ advert.user }}</div>
             </div>
                 <div>{{ advert.description }}</div>
+                <div>{{ advert.comment }}</div>
+            <div>
+                {% if advert.user != logged_user and logged_user != "" %}
+
+                    {% set form = formm.createView() %}
+                        {{ form_start(form) }}
+                        {{ form_row(form.content) }}
+                        {{ form_row(form.advert_id , {'value' : advert.id }) }}
+                        {{ form_end(form) }}
+
+                {% endif %}
+            </div>
         </div>
     {% else %}
         No adverts have been found.

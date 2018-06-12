@@ -38,6 +38,7 @@ class AdvertController extends Controller
         //Retrieve login user
 
         $advert = new Advert();
+
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $username = $user->getUsername();
 

@@ -8,9 +8,14 @@
 
 namespace AdvertSiteBundle\Controller;
 
+use AdvertSiteBundle\Entity\Comment;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 
 /**
  * @Route ("/flow", name="flow")
@@ -18,18 +23,46 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FlowController extends Controller
 {
-
     /**
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route ("/all", name="all_flow")
+     * @Route ("/all", name="allFlow")
      */
-    public function FlowDisplayAction(){
+    public function FlowDisplayAction(Request $request){
 
-        $repository = $this->getDoctrine()->getManager()->getRepository('AdvertSiteBundle:Advert');
+        $comment = new Comment();
+        $username = "";
+        $form = "";
 
-        $adverts = $repository->findBy(array("state"=>"published"));
+        if( $this->container->get( 'security.authorization_checker' )->isGranted( 'IS_AUTHENTICATED_FULLY' ) ){
 
-        return $this->render("@AdvertSite/Flow/flow.html.twig",array("adverts"=>$adverts));
+            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+            $username = $user->getUsername();
+            $repository = $this->getDoctrine()->getManager()->getRepository('AdvertSiteBundle:Advert');
+            $adverts = $repository->findBy(array("state"=>"published"));
+            $comment->setUser($username);
+
+            $form = $this->createFormBuilder($comment)
+                ->add('content',TextType::class)
+                ->add('advert_id',HiddenType::class)
+                ->add('submit',SubmitType::class, array('label' => "Add Comment"))
+                ->getForm();
+
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+
+                $advert = $form->getData();
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($advert);
+                $em->flush();
+
+                return $this->redirect("/flow/all");
+            }
+        }
+        return $this->render("@AdvertSite/Flow/flow.html.twig",array(
+            "adverts"=>$adverts,
+            "formm" => $form,
+            "logged_user" => $username));
     }
 
 }
