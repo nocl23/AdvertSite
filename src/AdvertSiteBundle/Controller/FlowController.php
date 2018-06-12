@@ -39,6 +39,11 @@ class FlowController extends Controller
             $username = $user->getUsername();
             $repository = $this->getDoctrine()->getManager()->getRepository('AdvertSiteBundle:Advert');
             $adverts = $repository->findBy(array("state"=>"published"));
+
+            $commentaire_rep = $this->getDoctrine()->getManager()->getRepository('AdvertSiteBundle:Comment');
+            $commentaires = $commentaire_rep->findAll();
+
+            var_dump($commentaires);
             $comment->setUser($username);
 
             $form = $this->createFormBuilder($comment)
@@ -62,6 +67,7 @@ class FlowController extends Controller
         return $this->render("@AdvertSite/Flow/flow.html.twig",array(
             "adverts"=>$adverts,
             "formm" => $form,
+            "comments" => $commentaires,
             "logged_user" => $username));
     }
 

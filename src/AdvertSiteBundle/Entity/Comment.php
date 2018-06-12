@@ -38,25 +38,25 @@ class Comment
     /**
      * @var int
      *
-     * @ORM\Column(name="advert_id",type="integer")
+     * @ORM\Column(name="advertId",type="integer")
      */
 
-    private $advert_id;
+    private $advertId;
 
     /**
      * @return int
      */
     public function getAdvertId()
     {
-        return $this->advert_id;
+        return $this->advertId;
     }
 
     /**
-     * @param int $advert_id
+     * @param int $advertId
      */
-    public function setAdvertId($advert_id)
+    public function setAdvertId($advertId)
     {
-        $this->advert_id = $advert_id;
+        $this->advertId = $advertId;
     }
 
     /**
