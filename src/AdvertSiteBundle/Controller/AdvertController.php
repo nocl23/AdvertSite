@@ -104,6 +104,16 @@ class AdvertController extends Controller
         $repository = $this->getDoctrine()->getManager()->getRepository('AdvertSiteBundle:Advert');
         $listAdverts = $repository->findBy(array("user" => $user[0]->getUsername()));
 
+        //Si la moyenne de l'utilisateur < 4.5 , on dépublie toutes ses annonces
+        if($user[0]->getNote() < 4.4){
+            foreach ($listAdverts as $advert){
+                $advert->setState("not published");
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($advert);
+                $em->flush();
+            }
+        }
+
         return $this->render('@AdvertSite/Admin/advert.html.twig', array(
             "adverts"=>$listAdverts,
             "user_id" => $id

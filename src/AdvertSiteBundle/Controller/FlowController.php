@@ -78,7 +78,7 @@ class FlowController extends Controller
 
                 $author = $repository_user->findBy(array("username"=>"$authorToNote"));
 
-                $notes = $repository_note->findBy(array("advertAuthor"=>"$authorToNote"));
+                //$notes = $repository_note->findBy(array("advertAuthor"=>"$authorToNote"));
 
                //calcul de la moyenne
                 $multip = $author[0]->getNote()+$noteForm["note"]->getData();
