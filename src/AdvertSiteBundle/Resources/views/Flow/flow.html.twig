@@ -3,6 +3,7 @@
 {% block body %}
 <div class="container-fluid">
     {% for advert in adverts %}
+        {#Advert not commented#}
         {% set advertCommented = 0 %}
         <div class=" col-md-offset-3 col-md-6 ">
             <div>
@@ -13,9 +14,20 @@
                 {% for comment in comments %}
                     {% if comment.advertId == advert.id %}
                         {% set advertCommented = 1 %}
-                       Commentaire laissé par {{ logged_user }} : {{ comment.content }}
+                       Commentaire laissé par {{ comment.user }} : {{ comment.content }}
                     {% endif %}
                 {% endfor %}
+
+                {% if advertCommented == 1 and advert.user != logged_user and logged_user != "" %}
+                    {% set note = notes.createView() %}
+                    {{ form_start(note) }}
+                    {{ form_row(note.note) }}
+                    {{ form_row(note.advertAuthor , {'value' : advert.user }) }}
+                    {{ form_end(note) }}
+                    {#State for an advert commented and author noted#}
+                    {% set advertCommented = 2 %}
+                {% endif %}
+
             <div>
                 {% if advert.user != logged_user and logged_user != "" and advertCommented == 0 %}
 
@@ -26,10 +38,11 @@
                         {{ form_end(form) }}
 
                 {% endif %}
+
             </div>
         </div>
     {% else %}
-        No adverts have been found.
+        No adverts have been found. Sign In or set to published your advert.
     {% endfor %}
 </div>
 {% endblock %}

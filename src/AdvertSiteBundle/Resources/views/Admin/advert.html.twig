@@ -20,7 +20,7 @@
                 <th><a type="button" class="btn btn-danger" role="button" href="/admin/remove/{{ advert.id }}">Remove</a></th>
             </tr>
         {% else %}
-            No adverts have been found.
+            No adverts have been found. Create <a href="/admin/create">New Advert</a>
         {% endfor %}
     </table>
     <div><a type="button" class="btn btn-primary col-md-offset-11" role="button" href="/admin/create">New Advert</a></div>
