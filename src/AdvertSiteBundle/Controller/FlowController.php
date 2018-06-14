@@ -108,6 +108,12 @@ class FlowController extends Controller
                 $em->persist($commentData);
                 $em->flush();
 
+                $commentAdvert = $repository_advert->findBy(array("id"=>$commentData->getAdvertId()));
+                $commentAdvert[0]->setComment($commentData->getId());
+
+                $em->persist($commentAdvert[0]);
+                $em->flush();
+
                 return $this->redirect("/");
             }
         }
