@@ -1,0 +1,19 @@
+title: Titre
+publicationDate: Date de Publication
+user: Auteur
+description: Contenu
+state: Etat
+edit: Editer
+remove: Supprimer
+logIn: Connexion
+logOut: Déconnexion
+siteTitle: Site d'annonces
+signIn: Inscription
+myAdverts: Mes Annonces
+newAdvert: Nouvelle annonce
+by: by
+commentText: Commentaire écrit par
+note: Note
+noteButton: Noter l'auteur de l'annonce
+commentButton: Commenter l'annonce
+noAdverts: Aucune annonce n'a été trouvée. Inscrivez vous pour créer une annonce ou publiez vos annonces.

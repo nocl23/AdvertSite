@@ -24,9 +24,8 @@ use Symfony\Component\Validator\Constraints\DateTime;
  * Class UserController
  * @package AdvertSiteBundle\Controller
  *
- * @Route("{_locale}/admin")
+ * @Route("/admin")
  */
-
 
 class AdvertController extends Controller
 {
@@ -50,6 +49,8 @@ class AdvertController extends Controller
         $advert->setUser($user);
         $advert->setPublicationDate(new \DateTime());
 
+        $translated = $this->get('translator')->trans('commentButton');
+
         $form = $this->createFormBuilder($advert)
             ->add('title',TextType::class)
             ->add('description', TextareaType::class)
@@ -60,7 +61,7 @@ class AdvertController extends Controller
                     'done' => 'done'
                 ),
             ))
-            ->add('submit',SubmitType::class, array('label' => "Create Advert"))
+            ->add('submit',SubmitType::class, array('label' => $translated))
             ->getForm();
 
         $form->handleRequest($request);
