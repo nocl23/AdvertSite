@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
  * Class UserController
  * @package AdvertSiteBundle\Controller
  *
- * @Route("/admin")
+ * @Route("{_locale}/admin")
  */
 
 
@@ -69,7 +69,6 @@ class AdvertController extends Controller
 
             $advert = $form->getData();
             $advert_state = $form["state"]->getData();
-            var_dump($advert_state);
 
             if($advert_state == "published" && $author_note > 4.4){
                 $em = $this->getDoctrine()->getManager();

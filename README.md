@@ -12,7 +12,7 @@ A Symfony project created on May 19, 2018, 9:07 pm.
 
 * Run `$composer dump-autoload`
 
-* Run the project : `php bin/console server:run`
+* Run the project : `$php bin/console server:run`
 
 If the database doesn't generate automatically, run the script advertSiteDatabase.sql to generate the database.
 

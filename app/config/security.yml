@@ -30,7 +30,8 @@ security:
                 login_path: /login
                 check_path: /login_check
 
-            logout: true
+            logout:
+                target: /
             anonymous: true
             # activate different ways to authenticate
     access_control:
