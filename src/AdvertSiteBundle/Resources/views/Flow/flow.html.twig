@@ -16,17 +16,18 @@
                         {% set advertCommented = 1 %}
                        Commentaire laissé par {{ comment.user }} : {{ comment.content }}
                     {% endif %}
-                {% endfor %}
 
-                {% if advertCommented == 1 and advert.user != logged_user and logged_user != "" %}
-                    {% set note = notes.createView() %}
-                    {{ form_start(note) }}
-                    {{ form_row(note.note) }}
-                    {{ form_row(note.advertAuthor , {'value' : advert.user }) }}
-                    {{ form_end(note) }}
-                    {#State for an advert commented and author noted#}
-                    {% set advertCommented = 2 %}
-                {% endif %}
+                    {% if advertCommented == 1 and advert.user != logged_user and logged_user != "" and comment.user == logged_user%}
+                        {% set note = notes.createView() %}
+                        {{ form_start(note) }}
+                        {{ form_row(note.note) }}
+                        {{ form_row(note.advertAuthor , {'value' : advert.user }) }}
+                        {{ form_end(note) }}
+                        {#State for an advert commented and author noted#}
+                        {% set advertCommented = 2 %}
+                    {% endif %}
+
+                {% endfor %}
 
             <div>
                 {% if advert.user != logged_user and logged_user != "" and advertCommented == 0 %}
