@@ -45,8 +45,6 @@ class FlowController extends Controller
 
         $repository_user = $this->getDoctrine()->getManager()->getRepository('AdvertSiteBundle:User');
 
-        $repository_note = $this->getDoctrine()->getManager()->getRepository('AdvertSiteBundle:Note');
-
         if( $this->container->get( 'security.authorization_checker' )->isGranted( 'IS_AUTHENTICATED_FULLY' ) ){
 
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
