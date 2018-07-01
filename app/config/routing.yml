@@ -1,11 +1,10 @@
 advert_site:
     resource: "@AdvertSiteBundle/Resources/config/routing.yml"
-    prefix:   /%locale%
+    prefix:   /
 
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
-    prefix: /%locale%
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
