@@ -29,7 +29,6 @@
                         </div>
                         <div class="col-md-4">
                             {% if not comment.isNoted and logged_user != "" and logged_user == advert.user and advert.user != comment.user %}
-                                auteur annonce connecte {{ logged_user }}
                                 {% set note = notes.createView() %}
                                 {{ form_start(note) }}
                                 {{ form_row(note.note) }}
@@ -39,7 +38,6 @@
                             {% endif %}
 
                             {% if not comment.isNoted and logged_user != "" and logged_user == firstCommentUser and logged_user != advert.user and comment.user != logged_user %}
-                                 auteur commentaire connecte {{ logged_user }}
                                 {% set note = notes.createView() %}
                                 {{ form_start(note) }}
                                 {{ form_row(note.note) }}

@@ -1,9 +1,8 @@
+
 #AdvertSite
-
-
 A Symfony project created on May 19, 2018, 9:07 pm.
 
-## Steps to reproduce 
+## Steps to reproduce -
 
 * Download the git file
 
@@ -13,6 +12,10 @@ A Symfony project created on May 19, 2018, 9:07 pm.
 * Run `$composer dump-autoload`
 
 * Run the project : `$php bin/console server:run`
+
+* Create database `$php bin/console doctrine:database:create`
+
+*Create schema of database : `$php bin/console doctrine:schema:create`
 
 If the database doesn't generate automatically, run the script advertSiteDatabase.sql to generate the database.
 
