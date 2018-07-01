@@ -7,7 +7,10 @@ A Symfony project created on May 19, 2018, 9:07 pm.
 
 * Download the git file
 
+* Move into the extracted repository after unzip the zip file
+
 * Install assetic bundle : execute `$composer require symfony/assetic-bundle`
+
 * Run `$composer install`
 
 * Run `$composer dump-autoload`
