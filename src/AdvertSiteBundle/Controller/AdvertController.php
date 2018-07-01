@@ -71,10 +71,13 @@ class AdvertController extends Controller
             $advert = $form->getData();
             $advert_state = $form["state"]->getData();
 
-            if($advert_state == "published" && $author_note > 4.4){
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($advert);
-                $em->flush();
+            if($advert_state == "published"){
+                if($author_note < 4.5){
+                    $advert->setState("not published");
+                }
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($advert);
+                    $em->flush();
 
             }else if($advert_state != "published"){
                 $em = $this->getDoctrine()->getManager();

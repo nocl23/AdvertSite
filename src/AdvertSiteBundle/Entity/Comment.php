@@ -44,6 +44,30 @@ class Comment
     private $advertId;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="isNoted",type="boolean")
+     */
+
+    private $isNoted;
+
+    /**
+     * @return bool
+     */
+    public function isNoted()
+    {
+        return $this->isNoted;
+    }
+
+    /**
+     * @param bool $isNoted
+     */
+    public function setIsNoted($isNoted)
+    {
+        $this->isNoted = $isNoted;
+    }
+
+    /**
      * @return int
      */
     public function getAdvertId()

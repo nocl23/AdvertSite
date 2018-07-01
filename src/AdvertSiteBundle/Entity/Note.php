@@ -42,6 +42,29 @@ class Note
      */
     private $note;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="commentId", type="integer")
+     */
+    private $commentId;
+
+    /**
+     * @return int
+     */
+    public function getCommentId()
+    {
+        return $this->commentId;
+    }
+
+    /**
+     * @param int $commentId
+     */
+    public function setCommentId($commentId)
+    {
+        $this->commentId = $commentId;
+    }
+
 
     /**
      * Get id

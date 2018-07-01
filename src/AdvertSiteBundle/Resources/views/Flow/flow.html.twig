@@ -5,41 +5,73 @@
     {% for advert in adverts %}
         {#Advert not commented#}
         {% set advertCommented = 0 %}
-        <div class=" col-md-offset-3 col-md-6 ">
+        <div class=" col-md-offset-2 col-md-8 ">
             <div>
                 <h3>{{ advert.title }}</h3>
                 <div>Le {{ advert.publicationDate|date("m/d/Y") }} par {{ advert.user }}</div>
             </div>
-                <div>{{ advert.description }}</div>
-                {% for comment in comments %}
-                    {% if comment.advertId == advert.id %}
-                        {% set advertCommented = 1 %}
-                       Commentaire laissé par {{ comment.user }} : {{ comment.content }}
+            <div>{{ advert.description }}</div>
+            {% set commentUser ='' %}
+            {% set firstCommentUser = '' %}
+            {% for comment in comments %}
+
+                {% if comment.advertId == advert.id %}
+
+                    {% if firstCommentUser == '' %}
+                        {% set firstCommentUser = comment.user %}
                     {% endif %}
 
-                    {% if advertCommented == 1 and advert.user != logged_user and logged_user != "" and comment.user == logged_user%}
-                        {% set note = notes.createView() %}
-                        {{ form_start(note) }}
-                        {{ form_row(note.note) }}
-                        {{ form_row(note.advertAuthor , {'value' : advert.user }) }}
-                        {{ form_end(note) }}
-                        {#State for an advert commented and author noted#}
-                        {% set advertCommented = 2 %}
-                    {% endif %}
+                    {% set advertCommented = 1 %}
 
-                {% endfor %}
+                    <div>
+                        <div class="col-md-8">
+                            Commentaire laissé par {{ comment.user }} : {{ comment.content }}
+                        </div>
+                        <div class="col-md-4">
+                            {% if not comment.isNoted and logged_user != "" and logged_user == advert.user and advert.user != comment.user %}
+                                auteur annonce connecte {{ logged_user }}
+                                {% set note = notes.createView() %}
+                                {{ form_start(note) }}
+                                {{ form_row(note.note) }}
+                                {{ form_row(note.advertAuthor , {'value' : comment.user }) }}
+                                {{ form_row(note.commentId , {'value' : comment.id }) }}
+                                {{ form_end(note) }}
+                            {% endif %}
 
-            <div>
-                {% if advert.user != logged_user and logged_user != "" and advertCommented == 0 %}
+                            {% if not comment.isNoted and logged_user != "" and logged_user == firstCommentUser and logged_user != advert.user and comment.user != logged_user %}
+                                 auteur commentaire connecte {{ logged_user }}
+                                {% set note = notes.createView() %}
+                                {{ form_start(note) }}
+                                {{ form_row(note.note) }}
+                                {{ form_row(note.advertAuthor , {'value' : advert.user }) }}
+                                {{ form_row(note.commentId , {'value' : comment.id }) }}
+                                {{ form_end(note) }}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
 
-                    {% set form = formm.createView() %}
+                {% set commentUser = comment.user %}
+
+            {% endfor %}
+             <div class="col-md-8">
+                    {% if advert.user != logged_user and logged_user != "" and advertCommented == 0%}
+
+                        {% set form = formm.createView() %}
                         {{ form_start(form) }}
                         {{ form_row(form.content) }}
                         {{ form_row(form.advert_id , {'value' : advert.id }) }}
                         {{ form_end(form) }}
 
-                {% endif %}
+                    {% endif %}
 
+                    {% if (advertCommented == 1 and logged_user == advert.user) or (firstCommentUser == logged_user) and logged_user != '' %}
+                        {% set form = formm.createView() %}
+                        {{ form_start(form) }}
+                        {{ form_row(form.content) }}
+                        {{ form_row(form.advert_id , {'value' : advert.id }) }}
+                        {{ form_end(form) }}
+                    {% endif %}
             </div>
         </div>
     {% else %}

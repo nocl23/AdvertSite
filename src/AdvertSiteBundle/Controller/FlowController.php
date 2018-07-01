@@ -40,8 +40,8 @@ class FlowController extends Controller
         $repository_advert = $this->getDoctrine()->getManager()->getRepository('AdvertSiteBundle:Advert');
         $adverts = $repository_advert->findBy(array("state"=>"published"));
 
-        $commentaire_rep = $this->getDoctrine()->getManager()->getRepository('AdvertSiteBundle:Comment');
-        $commentaires = $commentaire_rep->findAll();
+        $repository_comment = $this->getDoctrine()->getManager()->getRepository('AdvertSiteBundle:Comment');
+        $commentaires = $repository_comment->findAll(array("id"=>'ASC'));
 
         $repository_user = $this->getDoctrine()->getManager()->getRepository('AdvertSiteBundle:User');
         
@@ -51,6 +51,7 @@ class FlowController extends Controller
             $username = $user->getUsername();
 
             $comment->setUser($username);
+            $comment->setIsNoted(false);
             $note->setCommentAuthor($username);
 
             $noteForm = $this->createFormBuilder($note)
@@ -63,6 +64,7 @@ class FlowController extends Controller
                         '5' => 5
                     ),))
                 ->add('advertAuthor',HiddenType::class)
+                ->add('commentId',HiddenType::class)
                 ->add('submit',SubmitType::class, array('label' => "Notez l'auteur de l'annonce"))
                 ->getForm();
             $noteForm->handleRequest($request);
@@ -71,20 +73,24 @@ class FlowController extends Controller
 
                 $noteAdvert = $noteForm->getData();
 
+                //set note to author
                 $authorToNote = $noteForm["advertAuthor"]->getData();
-
                 $author = $repository_user->findBy(array("username"=>"$authorToNote"));
-
-                //$notes = $repository_note->findBy(array("advertAuthor"=>"$authorToNote"));
 
                //calcul de la moyenne
                 $multip = $author[0]->getNote()+$noteForm["note"]->getData();
 
                 $author[0]->setNote( $multip / (2));
 
+                //assigned note to comment
+                $commentId = $noteForm["commentId"]->getData();
+                $commentdb = $repository_comment->findBy(array("id"=>$commentId));
+                $commentdb[0]->setIsNoted(true);
+
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($author[0]);
                 $em->persist($noteAdvert);
+                $em->persist($commentdb[0]);
                 $em->flush();
 
                 return $this->redirect("/");
