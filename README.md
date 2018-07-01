@@ -1,5 +1,6 @@
 
-#AdvertSite
+# AdvertSite
+
 A Symfony project created on May 19, 2018, 9:07 pm.
 
 ## Steps to reproduce -
@@ -15,7 +16,7 @@ A Symfony project created on May 19, 2018, 9:07 pm.
 
 * Create database `$php bin/console doctrine:database:create`
 
-*Create schema of database : `$php bin/console doctrine:schema:create`
+* Create schema of database : `$php bin/console doctrine:schema:create`
 
 If the database doesn't generate automatically, run the script advertSiteDatabase.sql to generate the database.
 
