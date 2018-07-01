@@ -48,9 +48,7 @@ class AdvertController extends Controller
 
         $advert->setUser($user);
         $advert->setPublicationDate(new \DateTime());
-
-        $translated = $this->get('translator')->trans('commentButton');
-
+        
         $form = $this->createFormBuilder($advert)
             ->add('title',TextType::class)
             ->add('description', TextareaType::class)
@@ -61,7 +59,7 @@ class AdvertController extends Controller
                     'done' => 'done'
                 ),
             ))
-            ->add('submit',SubmitType::class, array('label' => $translated))
+            ->add('submit',SubmitType::class, array('label' => "Créer"))
             ->getForm();
 
         $form->handleRequest($request);

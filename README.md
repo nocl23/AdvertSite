@@ -19,6 +19,8 @@ A Symfony project created on May 19, 2018, 9:07 pm.
 
 * Create schema of database : `$php bin/console doctrine:schema:create`
 
+* Run `php bin/console doctrine:schema:update --force`
+
 * Run the project : `$php bin/console server:run`
 
 If the database doesn't generate automatically, run the script advertSiteDatabase.sql to generate the database.
